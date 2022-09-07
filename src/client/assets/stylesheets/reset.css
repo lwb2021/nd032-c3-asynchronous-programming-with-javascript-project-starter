@@ -1,3 +1,8 @@
+#header-background {
+    background: url("../static/background.jpeg");
+    background-size: cover;
+}
+
 html {
   box-sizing: border-box;
   font-size: 16px;

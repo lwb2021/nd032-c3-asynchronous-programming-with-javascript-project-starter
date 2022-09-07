@@ -1,5 +1,9 @@
 /* HOME PAGE SPECIFIC STYLES */
 
+#header-background {
+    background: url("../static/background.jpeg");
+    background-size: cover;
+}
 /* -------------------  MOBILE  --------------------- */
 
 
