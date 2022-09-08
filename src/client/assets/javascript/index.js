@@ -121,8 +121,6 @@ function runRace(raceID) {
       getRace(raceID)
         .then((res) => {
           if (res.status === "in-progress") {
-            console.log("in progress", res);
-
             renderAt("#leaderBoard", raceProgress(res.positions));
           } else if (res.status === "finished") {
             clearInterval(raceInterval);
@@ -294,9 +292,11 @@ function resultsView(positions) {
 		<header id="header-background">
 			<h1>Race Results</h1>
 		</header>
-		<main>
-			${raceProgress(positions)}
-			<a href="/race">Start a new race</a>
+		<main id="two-columns">
+			<section>
+				${raceProgress(positions)}
+				<a href="/race">Start a new race</a>
+			</section>
 		</main>
 	`;
 }
@@ -308,23 +308,23 @@ function raceProgress(positions) {
   positions = positions.sort((a, b) => (a.segment > b.segment ? -1 : 1));
   let count = 1;
 
-  const results = positions.map((p) => {
-    return `
+  const results = positions
+    .map((p) => {
+      return `
 			<tr>
 				<td>
 					<h3>${count++} - ${p.driver_name}</h3>
 				</td>
 			</tr>
 		`;
-  });
+    })
+    .join("");
 
   return `
-		<main>
-			<h3>Leaderboard</h3>
-			<section id="leaderBoard">
-				${results}
-			</section>
-		</main>
+		<h3>Leaderboard</h3>
+		<section id="leaderBoard">
+			${results}
+		</section>
 	`;
 }
 
@@ -428,7 +428,5 @@ function accelerate(id) {
     method: "POST",
     ...defaultFetchOpts(),
     mode: "cors",
-  }).then((res) => {
-    console.log("accer  ", res);
-  });
+  }).catch((err) => console.log("Problem with accelerate request::", err));
 }
