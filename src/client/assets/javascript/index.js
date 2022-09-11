@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setupClickHandlers();
 });
 
+// Get track and Racer information after the page is loaded
 async function onPageLoad() {
   try {
     getTracks().then((tracks) => {
@@ -31,6 +32,7 @@ async function onPageLoad() {
   }
 }
 
+// Set up the click actions for all the buttons
 function setupClickHandlers() {
   document.addEventListener(
     "click",
@@ -72,6 +74,7 @@ function setupClickHandlers() {
   );
 }
 
+// Give some wait time for the page to be fully loaded
 async function delay(ms) {
   try {
     return await new Promise((resolve) => setTimeout(resolve, ms));
@@ -103,6 +106,7 @@ async function handleCreateRace() {
   runRace(store["race_id"]);
 }
 
+// Control the race in progress
 function runRace(raceID) {
   // enable the acceleration button
   store.hasStarted = true;
@@ -126,6 +130,7 @@ function runRace(raceID) {
   });
 }
 
+// Count down the number before the race starts
 async function runCountdown() {
   try {
     // wait for the DOM to load
@@ -146,6 +151,7 @@ async function runCountdown() {
   }
 }
 
+// Configure the race selection options
 function handleSelectPodRacer(target) {
   // remove class selected from all racer options
   const selected = document.querySelector("#racers .selected");
@@ -158,6 +164,7 @@ function handleSelectPodRacer(target) {
   store.player_id = parseInt(target.id);
 }
 
+// Configure the track selection options
 function handleSelectTrack(target) {
   // remove class selected from all track options
   const selected = document.querySelector("#tracks .selected");
@@ -178,7 +185,7 @@ function handleAccelerate() {
 
 // HTML VIEWS ------------------------------------------------
 // Provided code - do not remove
-
+// Render the racer cars to the page
 function renderRacerCars(racers) {
   if (!racers.length) {
     return `
@@ -195,6 +202,7 @@ function renderRacerCars(racers) {
 	`;
 }
 
+// Format each racer option
 function renderRacerCard(racer) {
   const { id, driver_name, top_speed, acceleration, handling } = racer;
 
@@ -208,6 +216,7 @@ function renderRacerCard(racer) {
 	`;
 }
 
+// Render the track to the page
 function renderTrackCards(tracks) {
   if (!tracks.length) {
     return `
@@ -224,6 +233,7 @@ function renderTrackCards(tracks) {
 	`;
 }
 
+// Format each track option
 function renderTrackCard(track) {
   const { id, name } = track;
 
@@ -234,6 +244,7 @@ function renderTrackCard(track) {
 	`;
 }
 
+// Render count down
 function renderCountdown(count) {
   return `
 		<h2>Race Starts In...</h2>
@@ -241,6 +252,7 @@ function renderCountdown(count) {
 	`;
 }
 
+// Render the starting page of the race
 function renderRaceStartView(track) {
   return `
 		<header id="header-background">
@@ -261,6 +273,7 @@ function renderRaceStartView(track) {
 	`;
 }
 
+// Render the results page
 function resultsView(positions) {
   positions.sort((a, b) => (a.final_position > b.final_position ? 1 : -1));
 
@@ -277,6 +290,7 @@ function resultsView(positions) {
 	`;
 }
 
+// Render the race in progress
 function raceProgress(positions) {
   let userPlayer = positions.find((e) => e.id === store.player_id);
   userPlayer.driver_name += " (you)";
@@ -304,6 +318,7 @@ function raceProgress(positions) {
 	`;
 }
 
+// Render function to render part of the page with customized HTML
 function renderAt(element, html) {
   const node = document.querySelector(element);
 
@@ -325,8 +340,6 @@ function defaultFetchOpts() {
     },
   };
 }
-
-// TODO - Make a fetch call (with error handling!) to each of the following API endpoints
 
 // GET request to `${SERVER}/api/tracks`
 function getTracks() {
@@ -364,6 +377,7 @@ function getRacers() {
     });
 }
 
+// Create the race
 function createRace(player_id, track_id) {
   player_id = parseInt(player_id);
   track_id = parseInt(track_id);
@@ -378,10 +392,12 @@ function createRace(player_id, track_id) {
     .catch((err) => console.log("Problem with createRace request::", err));
 }
 
+// Get a race
 function getRace(id) {
   return fetch(`${SERVER}/api/races/${id}`).then((res) => res.json());
 }
 
+// Start a race
 function startRace(id) {
   return fetch(`${SERVER}/api/races/${id}/start`, {
     method: "POST",
@@ -391,6 +407,7 @@ function startRace(id) {
     .catch((err) => console.log("Problem with getRace request::", err));
 }
 
+// Accelerate the player's car in the race
 function accelerate(id) {
   fetch(`${SERVER}/api/races/${id}/accelerate`, {
     method: "POST",

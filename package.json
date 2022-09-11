@@ -12,5 +12,8 @@
     "express": "^4.17.1",
     "immutable": "^4.1.0",
     "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.2"
   }
 }
