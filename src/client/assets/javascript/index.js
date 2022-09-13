@@ -8,6 +8,12 @@ let store = {
   hasStarted: false,
 };
 
+// store the map for track id and track name
+const track_id_map = {};
+
+// store the map for race id and race name
+const race_id_map = {};
+
 // We need our javascript to wait until the DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
   onPageLoad();
@@ -88,21 +94,25 @@ async function delay(ms) {
 // This async function controls the flow of the race, add the logic and error handling
 async function handleCreateRace() {
   // render starting UI
-  renderAt(
-    "#race",
-    renderRaceStartView(store["track_id_mapping"][store["track_id"]])
-  );
+  renderAt("#race", renderRaceStartView(track_id_map["track_id"]));
 
+  // Get player_id and track_id from the store
   const { player_id, track_id } = store;
+
+  // invoke the API call to create the race, then save the result
   const race = await createRace(player_id, track_id);
 
+  // For the API to work properly, the race id should be race id - 1
   store["race_id"] = race.ID - 1;
 
   // The race has been created, now start the countdown
+  // call the async function runCountdown
   await runCountdown();
 
+  // call the async function startRace
   startRace(store["race_id"]);
 
+  // call the async function runRace
   runRace(store["race_id"]);
 }
 
@@ -343,15 +353,12 @@ function defaultFetchOpts() {
 
 // GET request to `${SERVER}/api/tracks`
 function getTracks() {
-  const map_naming = "track_id_mapping";
   return fetch(`${SERVER}/api/tracks`)
     .then((res) => res.json())
     .then((tracks) => {
-      let track_id_map = {};
       tracks.map((track) => {
         track_id_map[track.id] = track.name;
       });
-      store[map_naming] = track_id_map;
       return tracks;
     })
     .catch((err) => {
@@ -361,15 +368,12 @@ function getTracks() {
 
 // GET request to `${SERVER}/api/cars`
 function getRacers() {
-  const map_naming = "race_id_mapping";
   return fetch(`${SERVER}/api/cars`)
     .then((res) => res.json())
     .then((races) => {
-      let race_id_map = {};
       races.map((race) => {
         race_id_map[race.id] = race.driver_name;
       });
-      store[map_naming] = race_id_map;
       return races;
     })
     .catch((err) => {
