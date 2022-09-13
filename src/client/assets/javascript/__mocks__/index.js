@@ -1,0 +1,113 @@
+const createRace = () => {
+  return Promise.resolve({
+    Cars: [
+      {
+        id: 1,
+        driver_name: "Racer 1",
+        top_speed: 650,
+        acceleration: 8,
+        handling: 7,
+      },
+      {
+        id: 2,
+        driver_name: "Racer 2",
+        top_speed: 600,
+        acceleration: 9,
+        handling: 9,
+      },
+      {
+        id: 3,
+        driver_name: "Racer 3",
+        top_speed: 500,
+        acceleration: 10,
+        handling: 6,
+      },
+      {
+        id: 4,
+        driver_name: "Racer 4",
+        top_speed: 550,
+        acceleration: 7,
+        handling: 8,
+      },
+      {
+        id: 5,
+        driver_name: "Racer 5",
+        top_speed: 700,
+        acceleration: 5,
+        handling: 4,
+      },
+    ],
+    ID: 1,
+    PlayerID: 1,
+    Results: {
+      status: "unstarted",
+      positions: [
+        {
+          id: 1,
+          driver_name: "Racer 1",
+          top_speed: 650,
+          acceleration: 8,
+          handling: 7,
+          speed: 0,
+          segment: 0,
+        },
+        {
+          id: 2,
+          driver_name: "Racer 2",
+          top_speed: 600,
+          acceleration: 9,
+          handling: 9,
+          speed: 0,
+          segment: 0,
+        },
+        {
+          id: 3,
+          driver_name: "Racer 3",
+          top_speed: 500,
+          acceleration: 10,
+          handling: 6,
+          speed: 0,
+          segment: 0,
+        },
+        {
+          id: 4,
+          driver_name: "Racer 4",
+          top_speed: 550,
+          acceleration: 7,
+          handling: 8,
+          speed: 0,
+          segment: 0,
+        },
+        {
+          id: 5,
+          driver_name: "Racer 5",
+          top_speed: 700,
+          acceleration: 5,
+          handling: 4,
+          speed: 0,
+          segment: 0,
+        },
+      ],
+    },
+    Track: {
+      id: 1,
+      name: "Track 1",
+      segments: [
+        87, 47, 29, 31, 78, 25, 80, 76, 60, 14, 61, 12, 29, 58, 44, 81, 65, 47,
+        86, 65, 36, 68, 28, 27, 7, 7, 28, 60, 75, 31, 78, 77, 41, 39, 26, 87,
+        61, 75, 36, 43, 40, 64, 63, 73, 27, 88, 64, 19, 3, 27, 61, 9, 69, 40,
+        25, 8, 48, 43, 5, 71, 60, 75, 66, 46, 8, 71, 62, 23, 56, 73, 36, 62, 68,
+        87, 54, 37, 13, 16, 80, 33, 63, 7, 73, 11, 79, 83, 23, 71, 82, 38, 76,
+        6, 37, 0, 13, 12, 63, 25, 38, 75, 31, 75, 17, 77, 20, 10, 85, 30, 82,
+        78, 73, 31, 62, 54, 67, 77, 67, 21, 54, 56, 82, 81, 39, 76, 60, 23, 76,
+        49, 81, 72, 15, 25, 80, 27, 79, 8, 38, 54, 33, 24, 17, 22, 52, 26, 59,
+        20, 56, 71, 56, 40, 61, 34, 64, 65, 13, 21, 30, 52, 38, 67, 81, 58, 24,
+        42, 63, 42, 78, 33, 88, 66, 0, 35, 30, 44, 22, 67, 45, 21, 59, 10, 63,
+        70, 39, 50, 63, 30, 84, 67, 70, 5, 62, 59, 60, 78, 46, 35, 6, 50, 56, 9,
+        12,
+      ],
+    },
+  });
+};
+
+exports.createRace = createRace;

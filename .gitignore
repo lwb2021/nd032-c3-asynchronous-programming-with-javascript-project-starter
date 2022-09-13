@@ -1,1 +1,5 @@
 .DS_Store
+node_modules
+.history
+data.json
+package-lock.json
